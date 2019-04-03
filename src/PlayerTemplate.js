@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import { render } from "react-dom"
 import ReactPlayer from 'react-player'
 
 import PrevTrackIcon from './assets/previous-track.svg';
@@ -275,7 +274,6 @@ class MediaPlayer extends React.Component {
           height={'0px'}
           width={'0px'}
           config={{ file: { forceAudio: true } }}
-          // Currently populated with a sample URL.
           url={this.getCurrentTrack() ? this.getCurrentTrack().mediaUrl : null} 
           onProgress ={(state) => this.props.onProgress(state)}
           onDuration ={(state) => this.props.onDuration(state)}
