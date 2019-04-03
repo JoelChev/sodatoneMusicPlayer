@@ -1,0 +1,62 @@
+.play-pause-button() {
+    background-color:transparent;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    
+    @media @breakpoint-desktop {
+        border:2px solid @sodatonePinkColor;    
+        height:4rem;
+        width:4rem;
+    }
+
+    @media @breakpoint-tablet {
+        border:1.5px solid @sodatonePinkColor;    
+        height:3rem;
+        width:3rem;
+    }
+
+    @media @breakpoint-mobile {
+        border:1px solid @sodatonePinkColor;    
+        height:2rem;
+        width:2rem;
+    }
+    
+}
+
+.control-button(@spacing: false) {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    & when (@spacing) {
+
+        @media @breakpoint-desktop {
+            margin-right: 1rem;
+        }
+
+        @media @breakpoint-tablet {
+            margin-right: 0.75rem;
+        }
+
+        @media @breakpoint-mobile {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+.button-icon() {
+    @media @breakpoint-desktop {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    @media @breakpoint-tablet {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    @media @breakpoint-mobile {
+        width: 1rem;
+        height: 1rem;
+    }
+}

@@ -1,0 +1,25 @@
+.main-title() {
+    color: @white;
+    font-size: 3rem;
+    font-family: "Montserrat", sans-serif;
+}
+
+.main-text() {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    
+    @media @breakpoint-desktop {
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    @media @breakpoint-tablet {
+        font-size: 1rem;
+        margin-top: 0.25rem;
+    }
+
+    @media @breakpoint-mobile {
+        font-size: 0.75rem;
+        margin-top: 0.1rem;
+    }
+}
