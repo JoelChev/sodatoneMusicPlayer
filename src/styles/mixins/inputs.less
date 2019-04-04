@@ -1,7 +1,7 @@
 //Track styling adapted from : https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
 
 @track-color: #424242;
-@thumb-color: #ffffff;
+@thumb-color: @white;
 
 @thumb-radius: 2px;
 @thumb-height: 8px;
@@ -10,7 +10,7 @@
 @thumb-shadow-blur: 1px;
 @thumb-shadow-color: #111;
 @thumb-border-width: 1px;
-@thumb-border-color: #ffffff;
+@thumb-border-color: @white;
 
 @track-width: 100%;
 @track-height-desktop: 4px;
@@ -101,6 +101,7 @@ input[type=range] {
 			border: @track-border-width-tablet solid @track-border-color;
 		}
 	}
+	
 	&::-moz-range-thumb {
 		 .thumb();
 	}
@@ -125,6 +126,7 @@ input[type=range] {
 			border: @track-border-width-tablet solid @track-border-color;
 		}
 	}
+
 	&::-ms-fill-upper {
 		background: @track-color;
 		border-radius: @track-radius*2;
@@ -137,12 +139,15 @@ input[type=range] {
 			border: @track-border-width-tablet solid @track-border-color;
 		}
 	}
+
 	&::-ms-thumb {
 		.thumb();
 	}
+
 	&:focus::-ms-fill-lower {
 		background: @track-color;
 	}
+
 	&:focus::-ms-fill-upper {
 		background: lighten(@track-color, @contrast);
 	}

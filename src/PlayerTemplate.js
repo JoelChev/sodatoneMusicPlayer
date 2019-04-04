@@ -114,8 +114,14 @@ class Player extends React.Component {
 
 	onEnded() {
 		//If not at the last song, go to the next song on end
-		if (this.state.currentTrackIndex < this.tracks.length) {
+		if (this.state.currentTrackIndex < this.tracks.length-1) {
 			this.handleNext();
+		} else {
+			// Otherwise go to the first song and pause.
+			const{currentTrackIndex} = this.state;
+			const nextTrackIndex = (currentTrackIndex + 1) % this.tracks.length;
+			this.setState({ currentTrackIndex: nextTrackIndex });
+			this.setState({isPlaying: false});
 		}
 	}
 
@@ -135,6 +141,7 @@ class Player extends React.Component {
 	handlePrevious() {
 		const { currentTrackIndex } = this.state;
 		const previousTrackIndex = currentTrackIndex - 1;
+		// If on the first track, then we go back to the beginning.
 		if (previousTrackIndex < 0) {
 			this.setState({ played: 0.0 });
 		} else {
@@ -146,14 +153,11 @@ class Player extends React.Component {
 		const { currentTrackIndex } = this.state;
 		const nextTrackIndex = (currentTrackIndex + 1) % this.tracks.length;
 		this.setState({ currentTrackIndex: nextTrackIndex });
-		if (nextTrackIndex === 0) {
-			this.setState({ isPlaying: false });
-		}
 	}
 
 	handleMuteToggle() {
 		const { muted, volume, cachedVolume } = this.state;
-		//If we are going to be muting, save the volume for later.
+		// If we are going to be muting, save the volume for later.
 		if (!muted) {
 			this.setState({ cachedVolume: volume });
 			this.setState({ volume: 0 })
@@ -246,11 +250,23 @@ class MediaPlayer extends React.Component {
 	}
 
 	onPreviousClick() {
-		//If on the first song, simply go to the beginning of the current song.
+		// If on the first song, simply go to the beginning of the current song.
 		if (this.props.currentTrackIndex === 0) {
 			this.reactPlayer.current.seekTo(0);
 		}
 		this.props.handlePrevious();
+	}
+
+	onNextClick() {
+		// If you are on the last song, navigate to the end of the current song so that
+		// the first track starts as 'paused'.
+		if (this.props.currentTrackIndex === this.props.tracks.length - 1) {
+			this.reactPlayer.current.seekTo(this.props.duration);
+		} else {
+			// Otherwise, move onto the next song.
+			this.props.handleNext();
+		}
+		
 	}
 
 	getPlayedTime() {
@@ -327,7 +343,7 @@ class MediaPlayer extends React.Component {
 					}
 					<button
 						className="react-player-next-button"
-						onClick={() => this.props.handleNext()}>
+						onClick={() => this.onNextClick()}>
 						<img src={NextTrackIcon} className="react-player-next-button__icon" alt="Next Track"></img>
 					</button>
 					<div className="react-player-time-container">
