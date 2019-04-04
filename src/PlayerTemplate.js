@@ -12,7 +12,6 @@ import JoelIcon from './assets/joel.jpg';
 
 import * as timeUtil from './timeUtil';
 
-
 /*
 The goal is to create an audio player, similar to what you'd find at the bottom of the Spotify app.
 All our media files are accessible via URLs, as you can see below in `this.tracks`. We're using a
@@ -103,6 +102,7 @@ class Player extends React.Component {
 	}
 
 	onProgress(state) {
+		// Do not progress music timing when seeking.
 		if (!this.state.isSeeking) {
 			this.setState(state);
 		}
@@ -113,7 +113,7 @@ class Player extends React.Component {
 	}
 
 	onEnded() {
-		//If not at the last song, go to the next song on end
+		// If not at the last song, go to the next song on end
 		if (this.state.currentTrackIndex < this.tracks.length-1) {
 			this.handleNext();
 		} else {
@@ -125,14 +125,17 @@ class Player extends React.Component {
 		}
 	}
 
-	async handleVolumeToggle(event) {
-		await this.setState({ volume: parseFloat(event.target.value) });
-		const { volume } = this.state;
-		if (!volume || volume === 0) {
+	handleVolumeToggle(event) {
+		const volume = parseFloat(event.target.value);
+		this.setState({ volume});
+		// If the volume slider is set such that there is no volume, both mute AND disable
+		// the mute button.
+		if (!volume) {
 			this.setState({ muted: true });
 			this.setState({ isMuteControlDisabled: true });
 		}
 		else {
+			// Otherwise ensure that the track is not muted and that the mute button is enabled.
 			this.setState({ muted: false });
 			this.setState({ isMuteControlDisabled: false });
 		}
@@ -141,10 +144,11 @@ class Player extends React.Component {
 	handlePrevious() {
 		const { currentTrackIndex } = this.state;
 		const previousTrackIndex = currentTrackIndex - 1;
-		// If on the first track, then we go back to the beginning.
+		// If on the first track, then we go back to the beginning of it, we do not loop around.
 		if (previousTrackIndex < 0) {
 			this.setState({ played: 0.0 });
 		} else {
+			// Otherwise we go to the previous track if not on the first.
 			this.setState({ currentTrackIndex: previousTrackIndex });
 		}
 	}
@@ -157,12 +161,13 @@ class Player extends React.Component {
 
 	handleMuteToggle() {
 		const { muted, volume, cachedVolume } = this.state;
-		// If we are going to be muting, save the volume for later.
+		// If we are going to be muting, save the volume for later as a cached value.
+		// We will reset it back if we unmute.
 		if (!muted) {
 			this.setState({ cachedVolume: volume });
 			this.setState({ volume: 0 })
 		} else {
-			//Otherwise restore the volume.
+			// Otherwise restore the volume if we are unmuting.
 			this.setState({ volume: cachedVolume });
 			this.setState({ cachedVolume: 0 });
 		}
@@ -180,14 +185,12 @@ class Player extends React.Component {
 					<a href="https://github.com/JoelChev"
 						target="_blank"
 						rel="noopener noreferrer">
-						<img className="player-template-author-image" src={JoelIcon} alt="Joel_Cheverie"></img>
+						<img className="player-template-author-image" src={JoelIcon} alt="Joel_Cheverie"/>
 					</a>
 				</div>
 				<div className={`player-template-ocean ${this.state.isPlaying ? 'player-template-ocean--paused' : ''}`}>
-					<div className={`player-template-wave ${!this.state.isPlaying ? 'player-template-wave--paused' : ''}`}>
-					</div>
-					<div className={`player-template-wave ${!this.state.isPlaying ? 'player-template-wave--paused' : ''}`}>
-					</div>
+					<div className={`player-template-wave ${!this.state.isPlaying ? 'player-template-wave--paused' : ''}`}/>
+					<div className={`player-template-wave ${!this.state.isPlaying ? 'player-template-wave--paused' : ''}`}/>
 				</div>
 				<MediaPlayer
 					tracks={this.tracks}
@@ -297,7 +300,7 @@ class MediaPlayer extends React.Component {
 					onProgress={(state) => this.props.onProgress(state)}
 					onDuration={(state) => this.props.onDuration(state)}
 					onEnded={() => this.props.onEnded()}
-					volume={this.props.volume} />
+					volume={this.props.volume}/>
 				{
 					this.getCurrentTrack() ?
 						<div className="react-player-information-container">
@@ -307,7 +310,7 @@ class MediaPlayer extends React.Component {
 										<img
 											className="react-player-information-container__track-artwork"
 											src={this.getCurrentTrack().artworkUrl}
-											alt={`${this.getCurrentTrack().artistName} : ${this.getCurrentTrack().trackName}`} />
+											alt={`${this.getCurrentTrack().artistName} : ${this.getCurrentTrack().trackName}`}/>
 									</div>
 									: null
 							}
@@ -325,26 +328,26 @@ class MediaPlayer extends React.Component {
 					<button
 						className="react-player-previous-button"
 						onClick={() => this.onPreviousClick()}>
-						<img src={PrevTrackIcon} className="react-player-previous-button__icon" alt="Previous Track"></img>
+						<img src={PrevTrackIcon} className="react-player-previous-button__icon" alt="Previous Track"/>
 					</button>
 					{
 						!this.props.isPlaying ?
 							<button
 								className="react-player-play-button"
 								onClick={() => this.props.handlePlay()}>
-								<img src={PlayTrackIcon} className="react-player-play-button__icon" alt="Play Track"></img>
+								<img src={PlayTrackIcon} className="react-player-play-button__icon" alt="Play Track"/>
 							</button>
 							:
 							<button
 								className="react-player-pause-button"
 								onClick={() => this.props.handlePlay()}>
-								<img src={PauseTrackIcon} className="react-player-pause-button__icon" alt="Pause Track"></img>
+								<img src={PauseTrackIcon} className="react-player-pause-button__icon" alt="Pause Track"/>
 							</button>
 					}
 					<button
 						className="react-player-next-button"
 						onClick={() => this.onNextClick()}>
-						<img src={NextTrackIcon} className="react-player-next-button__icon" alt="Next Track"></img>
+						<img src={NextTrackIcon} className="react-player-next-button__icon" alt="Next Track"/>
 					</button>
 					<div className="react-player-time-container">
 						<p className="react-player-played-time">{this.getPlayedTime()}</p>
