@@ -176,7 +176,6 @@ class Player extends React.Component {
 		}));
 	}
 
-
 	render() {
 		return (
 			<div>
@@ -269,7 +268,6 @@ class MediaPlayer extends React.Component {
 			// Otherwise, move onto the next song.
 			this.props.handleNext();
 		}
-		
 	}
 
 	getPlayedTime() {
@@ -328,26 +326,38 @@ class MediaPlayer extends React.Component {
 					<button
 						className="react-player-previous-button"
 						onClick={() => this.onPreviousClick()}>
-						<img src={PrevTrackIcon} className="react-player-previous-button__icon" alt="Previous Track"/>
+						<img 
+							src={PrevTrackIcon} 
+							className="react-player-previous-button__icon" 
+							alt="Previous Track"/>
 					</button>
 					{
 						!this.props.isPlaying ?
 							<button
 								className="react-player-play-button"
 								onClick={() => this.props.handlePlay()}>
-								<img src={PlayTrackIcon} className="react-player-play-button__icon" alt="Play Track"/>
+								<img 
+									src={PlayTrackIcon} 
+									className="react-player-play-button__icon" 
+									alt="Play Track"/>
 							</button>
 							:
 							<button
 								className="react-player-pause-button"
 								onClick={() => this.props.handlePlay()}>
-								<img src={PauseTrackIcon} className="react-player-pause-button__icon" alt="Pause Track"/>
+								<img 
+									src={PauseTrackIcon} 
+									className="react-player-pause-button__icon" 
+									alt="Pause Track"/>
 							</button>
 					}
 					<button
 						className="react-player-next-button"
 						onClick={() => this.onNextClick()}>
-						<img src={NextTrackIcon} className="react-player-next-button__icon" alt="Next Track"/>
+						<img 
+							src={NextTrackIcon} 
+							className="react-player-next-button__icon" 
+							alt="Next Track"/>
 					</button>
 					<div className="react-player-time-container">
 						<p className="react-player-played-time">{this.getPlayedTime()}</p>
