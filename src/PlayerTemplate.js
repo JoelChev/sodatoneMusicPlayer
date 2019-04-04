@@ -94,7 +94,8 @@ class Player extends React.Component {
     }
 
     handleSeek(event) {
-        this.setState({ played: parseFloat(event.target.value) });
+        const played = parseFloat(event.target.value);
+        this.setState({played});
     }
 
     onSeekMouseUp() {
@@ -113,14 +114,11 @@ class Player extends React.Component {
     }
 
     onEnded() {
-        // If not at the last song, go to the next song on end
-        if (this.state.currentTrackIndex < this.tracks.length-1) {
-            this.handleNext();
-        } else {
-            // Otherwise go to the first song and pause.
-            const{currentTrackIndex} = this.state;
-            const nextTrackIndex = (currentTrackIndex + 1) % this.tracks.length;
-            this.setState({ currentTrackIndex: nextTrackIndex });
+        // First navigate to the next song in the queue.
+        this.handleNext();
+        // After navigating to the next song, if you are on the first song that 
+        // implies you were at the end of the list, so pause.
+        if (this.state.currentTrackIndex === 0) {
             this.setState({isPlaying: false});
         }
     }
@@ -144,9 +142,9 @@ class Player extends React.Component {
     handlePrevious() {
         const { currentTrackIndex } = this.state;
         const previousTrackIndex = currentTrackIndex - 1;
-        // If on the first track, then we go back to the beginning of it, we do not loop around.
+        // If on the first track, then we go back to the beginning of it on previous button click, we do not loop around.
         if (previousTrackIndex < 0) {
-            this.setState({ played: 0.0 });
+            this.setState({ played: 0 });
         } else {
             // Otherwise we go to the previous track if not on the first.
             this.setState({ currentTrackIndex: previousTrackIndex });
