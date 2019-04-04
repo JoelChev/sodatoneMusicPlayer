@@ -26,129 +26,129 @@
 @contrast: 5%;
 
 .track() {
-	width: @track-width;
-	cursor: pointer;
-	animate: 0.2s;
+    width: @track-width;
+    cursor: pointer;
+    animate: 0.2s;
 
-	@media @breakpoint-desktop {
-		height: @track-height-desktop
-	}
+    @media @breakpoint-desktop {
+        height: @track-height-desktop
+    }
 
-	@media @breakpoint-tablet {
-		height: @track-height-tablet
-	}
+    @media @breakpoint-tablet {
+        height: @track-height-tablet
+    }
 }
 
 .thumb() {
-	border: @thumb-border-width solid @thumb-border-color;
-	height: @thumb-height;
-	width: @thumb-width;
-	border-radius: @thumb-radius;
-	background: @thumb-color;
-	cursor: pointer;
+    border: @thumb-border-width solid @thumb-border-color;
+    height: @thumb-height;
+    width: @thumb-width;
+    border-radius: @thumb-radius;
+    background: @thumb-color;
+    cursor: pointer;
 }
 
 input[type=range] {
-	-webkit-appearance: none;
-	margin: @thumb-height/2 0;
-	width: @track-width;
+    -webkit-appearance: none;
+    margin: @thumb-height/2 0;
+    width: @track-width;
 
-	&:focus {
-		outline: none;
-	}
+    &:focus {
+        outline: none;
+    }
 
-	&::-webkit-slider-runnable-track {
-		.track();
-		background: @track-color;
-		border-radius: @track-radius;
+    &::-webkit-slider-runnable-track {
+        .track();
+        background: @track-color;
+        border-radius: @track-radius;
 
-		@media @breakpoint-desktop {
-			border: @track-border-width-desktop solid @track-border-color;
-		}
+        @media @breakpoint-desktop {
+            border: @track-border-width-desktop solid @track-border-color;
+        }
 
-		@media @breakpoint-tablet {
-			border: @track-border-width-tablet solid @track-border-color;
-		}
-	}
-	
-	&::-webkit-slider-thumb {
-		.thumb();
-		-webkit-appearance: none;
+        @media @breakpoint-tablet {
+            border: @track-border-width-tablet solid @track-border-color;
+        }
+    }
+    
+    &::-webkit-slider-thumb {
+        .thumb();
+        -webkit-appearance: none;
 
-		@media @breakpoint-desktop {
-			margin-top: ((-@track-border-width-desktop * 2 + @track-height-desktop) / 2) - (@thumb-height / 2);
-		}
+        @media @breakpoint-desktop {
+            margin-top: ((-@track-border-width-desktop * 2 + @track-height-desktop) / 2) - (@thumb-height / 2);
+        }
 
-		@media @breakpoint-tablet {
-			margin-top: ((-@track-border-width-tablet * 2 + @track-height-tablet) / 2) - (@thumb-height / 2);
-		}
-	}
+        @media @breakpoint-tablet {
+            margin-top: ((-@track-border-width-tablet * 2 + @track-height-tablet) / 2) - (@thumb-height / 2);
+        }
+    }
 
-	&:focus::-webkit-slider-runnable-track {
-		background: lighten(@track-color, @contrast);
-	}
+    &:focus::-webkit-slider-runnable-track {
+        background: lighten(@track-color, @contrast);
+    }
 
-	&::-moz-range-track {
-		.track();
-		background: @track-color;
-		border-radius: @track-radius;
+    &::-moz-range-track {
+        .track();
+        background: @track-color;
+        border-radius: @track-radius;
 
-		@media @breakpoint-desktop {
-			border: @track-border-width-desktop solid @track-border-color;
-		}
+        @media @breakpoint-desktop {
+            border: @track-border-width-desktop solid @track-border-color;
+        }
 
-		@media @breakpoint-tablet {
-			border: @track-border-width-tablet solid @track-border-color;
-		}
-	}
-	
-	&::-moz-range-thumb {
-		 .thumb();
-	}
+        @media @breakpoint-tablet {
+            border: @track-border-width-tablet solid @track-border-color;
+        }
+    }
+    
+    &::-moz-range-thumb {
+         .thumb();
+    }
 
-	&::-ms-track {
-		.track(); 
-		background: transparent;
-		border-color: transparent;
-		border-width: @thumb-width 0;
-		color: transparent;
-	}
+    &::-ms-track {
+        .track(); 
+        background: transparent;
+        border-color: transparent;
+        border-width: @thumb-width 0;
+        color: transparent;
+    }
 
-	&::-ms-fill-lower {
-		background: darken(@track-color, @contrast);
-		border-radius: @track-radius*2;
+    &::-ms-fill-lower {
+        background: darken(@track-color, @contrast);
+        border-radius: @track-radius*2;
 
-		@media @breakpoint-desktop {
-			border: @track-border-width-desktop solid @track-border-color;
-		}
+        @media @breakpoint-desktop {
+            border: @track-border-width-desktop solid @track-border-color;
+        }
 
-		@media @breakpoint-tablet {
-			border: @track-border-width-tablet solid @track-border-color;
-		}
-	}
+        @media @breakpoint-tablet {
+            border: @track-border-width-tablet solid @track-border-color;
+        }
+    }
 
-	&::-ms-fill-upper {
-		background: @track-color;
-		border-radius: @track-radius*2;
+    &::-ms-fill-upper {
+        background: @track-color;
+        border-radius: @track-radius*2;
 
-		@media @breakpoint-desktop {
-			border: @track-border-width-desktop solid @track-border-color;
-		}
+        @media @breakpoint-desktop {
+            border: @track-border-width-desktop solid @track-border-color;
+        }
 
-		@media @breakpoint-tablet {
-			border: @track-border-width-tablet solid @track-border-color;
-		}
-	}
+        @media @breakpoint-tablet {
+            border: @track-border-width-tablet solid @track-border-color;
+        }
+    }
 
-	&::-ms-thumb {
-		.thumb();
-	}
+    &::-ms-thumb {
+        .thumb();
+    }
 
-	&:focus::-ms-fill-lower {
-		background: @track-color;
-	}
+    &:focus::-ms-fill-lower {
+        background: @track-color;
+    }
 
-	&:focus::-ms-fill-upper {
-		background: lighten(@track-color, @contrast);
-	}
+    &:focus::-ms-fill-upper {
+        background: lighten(@track-color, @contrast);
+    }
 }
